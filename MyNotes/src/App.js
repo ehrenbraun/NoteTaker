@@ -1,13 +1,16 @@
 import React from 'react';
 import Login from "./components/Login";
 import './App.css';
-export const GoogleLogin = React.createContext();
-function App() {
+import GLogin from './components/GLogin';
+//export const GoogleLogin = React.createContext();
 
+
+function App() {
+console.log('here');
   return (
-    <Login>
+    <GLogin>
     <div className="App"></div>
-    </Login>
+    </GLogin>
   );
 }
 

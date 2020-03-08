@@ -1,10 +1,10 @@
 import React from 'react';
 import '../App.css';
 import GoogleLogin from 'react-google-login';
-import App from '../App';
+
 
 export const Login = () => {
-      const responseGoogle = (response) =>{
+      const responseGoogle = (response) => {
         
       };
     return(
