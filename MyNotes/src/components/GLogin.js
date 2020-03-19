@@ -1,55 +1,40 @@
 import React, { Component } from 'react';
-import {withFirebase} from './Firebase/context';
-import GoogleLogin from 'react-google-login';
-import {compose} from 'recompose';
+import firebase from './Firebase/firebase';
 
 class SignInGoogleBase extends Component {
     constructor(props) {
       super(props);
-      this.state = { error: null };
-    }
-  
+      this.state = { error: null};
+    }   
+    
     onSubmit = event => {
-      this.props.firebase
-        .doSignInWithGoogle()
-        .then(socialAuthUser => {
-          this.props.firebase
-            .user(socialAuthUser.user.uid)
-            .set({
-              username: socialAuthUser.user.displayName,
-              email: socialAuthUser.user.email,
-              roles: [],
-            })
-            .then(() => {
-              this.setState({ error: null });
-              //this.props.history.push(ROUTES.HOME);
-              console.log('logged in!');
-            })
-            .catch(error => {
-              this.setState({ error });
-            });
-        })
-        .catch(error => {
-          this.setState({ error });
-        });
   
       event.preventDefault();
+      firebase.doSignInWithGoogle();
+      if(firebase.auth != null) {
+        var email = firebase.auth.currentUser.email;
+        var userRef = firebase.firestore.collection("users").doc(email);
+        userRef.get().then(function(doc) {
+          if (!doc.exists){
+            userRef.set({
+              name: firebase.auth.currentUser.displayName
+            });
+          }         
+        })
+      }
     };
 
     render() {
       const { error } = this.state;
       return (
-      <form onSubmit={this.onSubmit}>
-        <button type="submit">Sign In</button>
-
-        {error && <p>{error.message}</p>}
-      </form>
+      <div>
+        <form onSubmit={this.onSubmit}>
+          <button type="submit">Sign In</button>
+          {error && <p>{error.message}</p>}
+        </form>
+      </div>
       );
     }
   }
 
-  const SignInGoogle = compose(withFirebase, (SignInGoogleBase));
-
-  export default GoogleLogin;
-
-  export {SignInGoogle};
+  export default SignInGoogleBase;

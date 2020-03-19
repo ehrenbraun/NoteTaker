@@ -1,5 +1,6 @@
-import app from 'firebase/app';
-import 'firebase/auth';
+import * as app from 'firebase';
+
+//Assistance from Minh
 
 const firebaseConfig = {
     apiKey: "AIzaSyDmjLwU8lMd5Do3bqBJNoikiXtkpXlZ3DY",
@@ -16,13 +17,13 @@ const firebaseConfig = {
       constructor() {
           app.initializeApp(firebaseConfig);
           this.auth = app.auth();
-          this.db = app.firestore();
+          this.firestore = app.firestore();
           this.googleProvider = new app.auth.GoogleAuthProvider();
       }
       doSignInWithGoogle = () =>
-      this.auth.signInWithPopup(this.googleProvider);
+      this.auth.signInWithRedirect(this.googleProvider);
 
       doSignOut = () => this.auth.signOut();
   }
-  
-  export default Firebase;
+  const firebase = new Firebase();
+  export default firebase;
