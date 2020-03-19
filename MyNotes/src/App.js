@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
-import GLogin from './components/GLogin';
-import firebase from './components/Firebase/firebase'
-//export const GoogleLogin = React.createContext();
+import Login from './components/Login';
+import Logout from './components/Logout';
 
 
 function App() {
   return (
     <div className="App">
-      <GLogin/>
+      <Login/>
+      <Logout/>
     </div>
    
   );
