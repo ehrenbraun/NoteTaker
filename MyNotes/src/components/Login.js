@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from './Firebase/firebase';
-import {Link, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 // Assistance:
 // https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial
@@ -23,7 +23,7 @@ const Login = ({ history }) => {
             userRef.set({ name: username});
           }
         })
-        history.push("/");
+        history.push("/session");
       }
     });
   }
