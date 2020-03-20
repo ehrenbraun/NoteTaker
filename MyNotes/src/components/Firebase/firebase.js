@@ -1,6 +1,8 @@
 import * as app from 'firebase';
 
-//Assistance from Minh
+//Assistance from:
+// Minh Ta: Help with cleaning up code to function correctly throughout firebase implementation
+// https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial => all files in Firebase folder
 
 const firebaseConfig = {
     apiKey: "AIzaSyDmjLwU8lMd5Do3bqBJNoikiXtkpXlZ3DY",
@@ -21,7 +23,7 @@ const firebaseConfig = {
           this.googleProvider = new app.auth.GoogleAuthProvider();
       }
       doSignInWithGoogle = () =>
-      this.auth.signInWithRedirect(this.googleProvider);
+      this.auth.signInWithPopup(this.googleProvider);
 
       doSignOut = () => this.auth.signOut();
   }

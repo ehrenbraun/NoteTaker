@@ -1,12 +1,16 @@
 import React from 'react';
 import firebase from './Firebase/firebase'
+import {Link, withRouter} from 'react-router-dom';
 
-const Logout = () => {
+// Assistance:
+// https://www.youtube.com/watch?v=unr4s3jd9qA
+// This helped with getting the router to work with the component
+
+const Logout = ({ history }) => {
     const signOut = event => {
         event.preventDefault();
-        console.log(firebase.auth.currentUser);
         firebase.doSignOut();
-        console.log(firebase.auth.currentUser);
+        history.push("/login");
     }
 
     return(
@@ -16,4 +20,4 @@ const Logout = () => {
     )
 }
 
-export default Logout;
+export default withRouter(Logout);

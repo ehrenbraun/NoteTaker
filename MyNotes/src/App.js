@@ -1,14 +1,11 @@
 import React from 'react';
 import './App.css';
-import Login from './components/Login';
-import Logout from './components/Logout';
-
+import Router from './components/Router';
 
 function App() {
   return (
     <div className="App">
-      <Login/>
-      <Logout/>
+      <Router/>
     </div>
    
   );
