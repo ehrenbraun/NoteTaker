@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import firebase from './Firebase/firebase';
 import NavBar from './NavBar';
 
@@ -27,9 +27,17 @@ const NoteList = () => {
         <div>
         <NavBar/>
         <h2>Note List</h2>
-        {noteTitles.map(noteTitle => (
-            <h4 key={noteTitle}>{noteTitle}</h4>
-        ))}
+        <table align="center">
+            <tbody>
+                {noteTitles.map(noteTitle => (
+                    <tr key={noteTitle}>
+                        <td key={noteTitle + "1"}><h4 key={noteTitle + "title"}>{noteTitle}   </h4></td>
+                        <td key={noteTitle + "2"}><Link to={`/viewNotes/${noteTitle}`}><button key={noteTitle + "view"}>View</button></Link></td>
+                        <td key={noteTitle + "3"}><Link to={`/editNotes/${noteTitle}`}><button key={noteTitle + "edit"}>Edit</button></Link></td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
         </div>
     )
 }

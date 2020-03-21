@@ -48,9 +48,9 @@ const NoteCreator = ({ history }) => {
             <form onSubmit={createNote}>
                 <span>Title: </span>
                 <input onChange={checkTitle}></input>
-                <Link to="/createNotes"><button disabled={!unique} onClick={createNote}>Create</button></Link>
+                <Link to={`/editNotes/${title}`}><button disabled={!unique} onClick={createNote}>Create</button></Link>
             </form>
-            <h4>{!!unique ? "" : "This title cannot used (you may have been used already)"}</h4>
+            <h4>{!!unique ? "" : "This title cannot used (you may have used this already)"}</h4>
         </div>
     )
 }
