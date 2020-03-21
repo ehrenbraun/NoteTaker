@@ -23,7 +23,7 @@ const Login = ({ history }) => {
             userRef.set({ name: username});
           }
         })
-        history.push("/session");
+        history.push("/");
       }
     });
   }

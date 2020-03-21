@@ -1,9 +1,10 @@
 import React from 'react';
-import { Route, Redirect, BrowserRouter } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import firebase from './Firebase/firebase';
 import Login from './Login';
 import NavBar from './NavBar';
 import NoteList from './NoteList';
+import NoteCreator from './NoteCreator';
 
 // Assistance:
 // https://medium.com/@subalerts/creating-protected-routes-in-react-js-89e95974a822
@@ -14,11 +15,13 @@ import NoteList from './NoteList';
 
 
 const Router = () => (
-    <BrowserRouter>
-        <Route path="/" component={Login} />
-        <Route path="/session" component={NavBar} />
-        <Route path={"/session/myNotes"} component={NoteList} />
-    </BrowserRouter>
+    <Switch>
+        <Route exact path="/login" component={Login} />
+        <PrivateRoute exact path="/" component={NavBar} />
+        <PrivateRoute path="/myNotes" component={NoteList} />
+        <PrivateRoute path="/createNotes" component={NoteCreator}/>
+        <PrivateRoute path="/*" />
+    </Switch>
 )
 
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {

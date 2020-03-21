@@ -1,6 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import firebase from './Firebase/firebase';
+import NavBar from './NavBar';
 
 const NoteList = () => {
     React.useEffect(() => {
@@ -24,6 +25,7 @@ const NoteList = () => {
     
     return(
         <div>
+        <NavBar/>
         <h2>Note List</h2>
         {noteTitles.map(noteTitle => (
             <h4 key={noteTitle}>{noteTitle}</h4>

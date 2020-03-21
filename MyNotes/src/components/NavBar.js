@@ -16,9 +16,9 @@ const NavBar = ({ history}) => {
     return(
         <nav style={{background: 'gray', justifyContent: 'space-around', display: 'flex', minHeight: '10vh'}}>
             <h1>NoteTaker</h1>
-            <h4><Link to={"/session/myNotes"}>My Notes</Link></h4>
-            <Link to={`/session/createNotes`}><h4>Create Notes</h4></Link>
-            <button onClick={signOut}>Sign Out</button>
+            <h4><Link to="/myNotes">My Notes</Link></h4>
+            <Link to="/createNotes"><h4>Create Notes</h4></Link>
+            <Link to="/login"><button onClick={signOut}>Sign Out</button></Link>
         </nav>
     )
 }
