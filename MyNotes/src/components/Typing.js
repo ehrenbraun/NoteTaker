@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from './Firebase/firebase';
+import {withRouter, Link} from 'react-router-dom';
 
 
 const Typing = (props) => {
@@ -73,9 +74,9 @@ const Typing = (props) => {
             <span>Title: </span>
             <input ref={inputRef2} onChange={checkTitles}></input>
             <input ref={inputRef}></input>
-            <button onClick={saveData} disabled={used}>Save</button>
+            <Link to="/myNotes"><button onClick={saveData} disabled={used}>Save</button></Link>
         </div>
     )
 }
 
-export default Typing
+export default withRouter(Typing);

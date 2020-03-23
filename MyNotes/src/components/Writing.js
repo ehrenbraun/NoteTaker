@@ -9,6 +9,9 @@ import {withRouter,Link} from 'react-router-dom';
 
 const Writing = (props) => {
     const canvasRef = React.useRef(null);
+    const inputRef = React.useRef(null);
+    const [usedTitle, updateTitleStatus] = React.useState(false);
+    const [titles, updateTitles] = React.useState([]);
     const [oldImage, initializeImage] = React.useState(null);
     const [mouseDown, updateMouse] = React.useState(false);
     const [mouseLocation, updateLocation] = React.useState({x: 0, y: 0});
@@ -41,6 +44,8 @@ const Writing = (props) => {
     }
     const loadWritten = async () => {
         const canvas = canvasRef.current;
+        const input = inputRef.current;
+        input.value = props.docId;
         const ctx = canvas.getContext('2d');
         var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const data = imageData.data;
@@ -50,8 +55,32 @@ const Writing = (props) => {
                 data[pixel] = 255;
             })
         })
+        var noteTitles = [];
+        await userRef.collection("myNotes").get().then(snapshot => {
+            snapshot.forEach(doc => {
+                noteTitles.push(doc.id);
+            })
+        })
+        updateTitles(noteTitles);
         ctx.putImageData(imageData, 0, 0);
         initializeImage(imageData);
+    }
+
+    const checkTitles = () => {
+        const input = inputRef.current;
+        var used = false;
+        for(let title = 0; title < titles.length; title++){
+            if(input.value === titles[title]){
+                if(input.value !== props.docId){
+                    used = true;
+                    break;
+                }
+            } else if(input.value === ""){
+                used = true;
+                break;
+            }
+        }
+        updateTitleStatus(used);
     }
     const updateMouseState = event => {
         var source = event.nativeEvent.type;
@@ -119,6 +148,7 @@ const Writing = (props) => {
 
     const saveData = () => {
         var usedPixels = []
+        const input = inputRef.current;
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
@@ -129,10 +159,17 @@ const Writing = (props) => {
                 usedPixels.push(pixel)
             }
         }
-        docRef.update({written: usedPixels});
+        if(input.value === props.docId){
+            docRef.update({written: usedPixels});
+        } else{
+            docRef.delete();
+            userRef.collection("myNotes").doc(input.value).set({type: "write", written: usedPixels});
+        }
     }
     return (
         <div>
+            <span>Title: </span>
+            <input ref={inputRef} onChange={checkTitles}></input>
             <canvas style={{border: '2px solid black'}} ref={canvasRef} 
                 onMouseMove={draw}
                 onMouseLeave={updateMouseState}
@@ -141,7 +178,7 @@ const Writing = (props) => {
             </canvas>
             <button onClick={updateDrawingState}>{drawState ? "Erase" : "Draw"}</button>
             <button onClick={undoTrace}>Undo</button>
-            <Link to="/myNotes"><button onClick={saveData}>Save</button></Link>
+            <Link to="/myNotes"><button onClick={saveData} disabled={usedTitle}>Save</button></Link>
         </div>
     )
 }

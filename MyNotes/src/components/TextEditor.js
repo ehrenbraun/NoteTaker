@@ -1,6 +1,4 @@
 import React from 'react';
-import firebase from './Firebase/firebase';
-import Writing from './Writing';
 import Typing from './Typing';
 import NavBar from './NavBar';
 
@@ -9,7 +7,7 @@ import NavBar from './NavBar';
 // https://developer.mozilla.org/en-US/docs/Web/API/Element/mousemove_event
 // this helped with getting the canvas drawing started
 
-const NoteEditor = ({match}) => {
+const TextEditor = ({match}) => {
     return (
         <div>
             <NavBar></NavBar>
@@ -18,4 +16,4 @@ const NoteEditor = ({match}) => {
     )
 }
 
-export default NoteEditor;
+export default TextEditor;
