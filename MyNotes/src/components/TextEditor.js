@@ -10,15 +10,10 @@ import NavBar from './NavBar';
 // this helped with getting the canvas drawing started
 
 const NoteEditor = ({match}) => {
-    const docRef = firebase.firestore.collection("users").doc(firebase.auth.currentUser.email).collection("myNotes").doc(match.params.note);
-    const [textBased, inform] = React.useState(true);
-    docRef.get().then(doc => {
-        inform(doc.data().type === "text");
-    })
     return (
         <div>
             <NavBar></NavBar>
-            {textBased ? <Typing docId={match.params.note}/> : <Writing docId={match.params.note}/>}
+            <Typing docId={match.params.note}/>
         </div>
     )
 }

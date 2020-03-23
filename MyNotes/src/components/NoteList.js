@@ -16,7 +16,7 @@ const NoteList = () => {
         var userNoteTitles = [];
         await userNotes.get().then(snapshot => {
             snapshot.forEach(doc => {
-                userNoteTitles.push(doc.id);
+                userNoteTitles.push({id: doc.id, type: doc.data().type});
             })
         })
         setNoteTitles(userNoteTitles);
@@ -30,10 +30,10 @@ const NoteList = () => {
         <table align="center">
             <tbody>
                 {noteTitles.map(noteTitle => (
-                    <tr key={noteTitle}>
-                        <td key={noteTitle + "1"}><h4 key={noteTitle + "title"}>{noteTitle}   </h4></td>
-                        <td key={noteTitle + "2"}><Link to={`/viewNotes/${noteTitle}`}><button key={noteTitle + "view"}>View</button></Link></td>
-                        <td key={noteTitle + "3"}><Link to={`/editNotes/${noteTitle}`}><button key={noteTitle + "edit"}>Edit</button></Link></td>
+                    <tr key={noteTitle.id}>
+                        <td key={noteTitle.id + "1"}><h4 key={noteTitle.id + "title"}>{noteTitle.id}   </h4></td>
+                        <td key={noteTitle.id + "2"}><Link to={`/viewNotes/${noteTitle.type}/${noteTitle.id}`}><button key={noteTitle.id + "view"}>View</button></Link></td>
+                        <td key={noteTitle.id + "3"}><Link to={`/editNotes/${noteTitle.type}/${noteTitle.id}`}><button key={noteTitle.id + "edit"}>Edit</button></Link></td>
                     </tr>
                 ))}
             </tbody>

@@ -5,7 +5,8 @@ import Login from './Login';
 import NavBar from './NavBar';
 import NoteList from './NoteList';
 import NoteCreator from './NoteCreator';
-import NoteEditor from './NoteEditor';
+import TextEditor from './TextEditor';
+import DrawingEditor from './DrawingEditor';
 
 // Assistance:
 // https://medium.com/@subalerts/creating-protected-routes-in-react-js-89e95974a822
@@ -22,7 +23,8 @@ const Router = () => (
         <PrivateRoute path="/myNotes" component={NoteList} />
         <PrivateRoute path="/createNotes" component={NoteCreator}/>
         <PrivateRoute path="/viewNotes/:note" component={NoteList}/>
-        <PrivateRoute path="/editNotes/:note" component={NoteEditor}/>
+        <PrivateRoute path="/editNotes/text/:note" component={TextEditor}/>
+        <PrivateRoute path="/editNotes/write/:note" component={DrawingEditor}/>
         <PrivateRoute path="/*" />
     </Switch>
 )

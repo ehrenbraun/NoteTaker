@@ -7,6 +7,8 @@ const NoteCreator = ({ history }) => {
     const selectRef = React.useRef(null);
     const [unique, update] = React.useState(false);
 
+    const [option, updateOption] = React.useState("Typing");
+
     const [title, updateTitle] = React.useState("");
     
     const [titles, setTitles] = React.useState([]);
@@ -49,15 +51,23 @@ const NoteCreator = ({ history }) => {
         }
         
     }
+
+    const changeOption = () => {
+        const select = selectRef.current;
+        updateOption(select.selectedIndex === 0 ? "Typing" : "Writing")
+    }
+    const determinePath = () => {
+        return option === "Typing" ? `/editNotes/text/${title}` : `/editNotes/write/${title}`;
+    }
     return (
         <div>
             <NavBar/>
             <form onSubmit={createNote}>
                 <span>Title: </span>
                 <input onChange={checkTitle}></input>
-                <Link to={`/editNotes/${title}`}><button disabled={!unique} onClick={createNote}>Create</button></Link>
+                <Link to={determinePath}><button disabled={!unique} onClick={createNote}>Create</button></Link>
             </form>
-            <select ref={selectRef}>
+            <select ref={selectRef} onChange={changeOption}>
                 <option>Typing</option>
                 <option>Writing</option>
             </select>
