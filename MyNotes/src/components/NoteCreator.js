@@ -4,6 +4,7 @@ import firebase from './Firebase/firebase';
 import NavBar from './NavBar'
 
 const NoteCreator = ({ history }) => {
+    const selectRef = React.useRef(null);
     const [unique, update] = React.useState(false);
 
     const [title, updateTitle] = React.useState("");
@@ -20,7 +21,13 @@ const NoteCreator = ({ history }) => {
     const userNotes = firebase.firestore.collection("users").doc(email).collection("myNotes");
 
     const createNote = () => {
-        userNotes.doc(title).set({text: "", written: []})
+        var select = selectRef.current;
+        if(select.selectedIndex === 0){
+            userNotes.doc(title).set({type: "text", text: ""});
+        } else{
+            userNotes.doc(title).set({type: "write", written: []});
+        }
+        
     }
 
     const fetchNoteTitles = async () => {
@@ -50,7 +57,11 @@ const NoteCreator = ({ history }) => {
                 <input onChange={checkTitle}></input>
                 <Link to={`/editNotes/${title}`}><button disabled={!unique} onClick={createNote}>Create</button></Link>
             </form>
-            <h4>{!!unique ? "" : "This title cannot used (you may have used this already)"}</h4>
+            <select ref={selectRef}>
+                <option>Typing</option>
+                <option>Writing</option>
+            </select>
+            <h4>{!!unique ? "" : "This title cannot be used (you may have used this already)"}</h4>
         </div>
     )
 }

@@ -1,5 +1,7 @@
 import React from 'react';
+import firebase from './Firebase/firebase';
 import Writing from './Writing';
+import Typing from './Typing';
 import NavBar from './NavBar';
 
 // Assistance:
@@ -8,11 +10,15 @@ import NavBar from './NavBar';
 // this helped with getting the canvas drawing started
 
 const NoteEditor = ({match}) => {
-    
+    const docRef = firebase.firestore.collection("users").doc(firebase.auth.currentUser.email).collection("myNotes").doc(match.params.note);
+    const [textBased, inform] = React.useState(true);
+    docRef.get().then(doc => {
+        inform(doc.data().type === "text");
+    })
     return (
         <div>
             <NavBar></NavBar>
-            <Writing docId={match.params.note}></Writing>
+            {textBased ? <Typing docId={match.params.note}/> : <Writing docId={match.params.note}/>}
         </div>
     )
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from './Firebase/firebase';
+import {withRouter,Link} from 'react-router-dom'; 
 
 // Assistance:
 
@@ -140,9 +141,9 @@ const Writing = (props) => {
             </canvas>
             <button onClick={updateDrawingState}>{drawState ? "Erase" : "Draw"}</button>
             <button onClick={undoTrace}>Undo</button>
-            <button onClick={saveData}>Save</button>
+            <Link to="/myNotes"><button onClick={saveData}>Save</button></Link>
         </div>
     )
 }
 
-export default Writing;
+export default withRouter(Writing);
