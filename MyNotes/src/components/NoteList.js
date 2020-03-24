@@ -6,6 +6,9 @@ import NavBar from './NavBar';
 const NoteList = () => {
     React.useEffect(() => {
         fetchNoteTitles();
+        return function cleanup(){
+            setNoteTitles([]);
+        }
     }, [])
 
     const [noteTitles, setNoteTitles] = React.useState([]);

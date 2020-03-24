@@ -172,18 +172,22 @@ const Writing = (props) => {
     }
     return (
         <div>
-            <span>Title: </span>
-            <input ref={inputRef} onChange={checkTitles}></input>
+            <div>
+                <span>Title: </span>
+                <input ref={inputRef} onChange={checkTitles}></input>
+            </div>
             <canvas style={{border: '2px solid black'}} ref={canvasRef} 
                 onMouseMove={draw}
                 onMouseLeave={updateMouseState}
                 onMouseDown={updateMouseState} 
                 onMouseUp={updateMouseState}>
             </canvas>
-            <button onClick={updateDrawingState}>{drawState ? "Erase" : "Draw"}</button>
-            <button onClick={undoTrace}>Undo</button>
-            <Link to="/myNotes"><button onClick={deleteNote}>Delete</button></Link>
-            <Link to="/myNotes"><button onClick={saveData} disabled={usedTitle}>Save</button></Link>
+            <div>
+                <button onClick={updateDrawingState}>{drawState ? "Erase" : "Draw"}</button>
+                <button onClick={undoTrace}>Undo</button>
+                <Link to="/myNotes"><button onClick={deleteNote}>Delete</button></Link>
+                <Link to="/myNotes"><button onClick={saveData} disabled={usedTitle}>Save</button></Link>
+            </div>
         </div>
     )
 }

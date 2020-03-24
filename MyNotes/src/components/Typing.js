@@ -18,7 +18,7 @@ const Typing = (props) => {
         loadText();
         fetchTitles();
         return function cleanup() {
-
+            updateState(false);
         }
     }, [])
 
@@ -75,11 +75,17 @@ const Typing = (props) => {
     }
     return (
         <div>
-            <span>Title: </span>
-            <input ref={inputRef2} onChange={checkTitles}></input>
-            <input ref={inputRef}></input>
-            <Link to="/myNotes"><button onClick={deleteNote}>Delete</button></Link>
-            <Link to="/myNotes"><button onClick={saveData} disabled={used}>Save</button></Link>
+            <div>
+                <span>Title: </span>
+                <input ref={inputRef2} onChange={checkTitles}></input>
+            </div>
+            <div>
+                <textarea ref={inputRef} style={{width: "50%"}}></textarea>
+            </div>
+            <div>
+                <Link to="/myNotes"><button onClick={deleteNote}>Delete</button></Link>
+                <Link to="/myNotes"><button onClick={saveData} disabled={used}>Save</button></Link>
+            </div>
         </div>
     )
 }
