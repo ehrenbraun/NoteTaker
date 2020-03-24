@@ -69,11 +69,16 @@ const Typing = (props) => {
             userRef.collection("myNotes").doc(input2.value).set({type: "text", text: input.value})
         }
     }
+
+    const deleteNote = () => {
+        docRef.delete();
+    }
     return (
         <div>
             <span>Title: </span>
             <input ref={inputRef2} onChange={checkTitles}></input>
             <input ref={inputRef}></input>
+            <Link to="/myNotes"><button onClick={deleteNote}>Delete</button></Link>
             <Link to="/myNotes"><button onClick={saveData} disabled={used}>Save</button></Link>
         </div>
     )

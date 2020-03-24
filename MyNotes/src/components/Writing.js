@@ -166,6 +166,10 @@ const Writing = (props) => {
             userRef.collection("myNotes").doc(input.value).set({type: "write", written: usedPixels});
         }
     }
+
+    const deleteNote = () => {
+        docRef.delete();
+    }
     return (
         <div>
             <span>Title: </span>
@@ -178,6 +182,7 @@ const Writing = (props) => {
             </canvas>
             <button onClick={updateDrawingState}>{drawState ? "Erase" : "Draw"}</button>
             <button onClick={undoTrace}>Undo</button>
+            <Link to="/myNotes"><button onClick={deleteNote}>Delete</button></Link>
             <Link to="/myNotes"><button onClick={saveData} disabled={usedTitle}>Save</button></Link>
         </div>
     )
