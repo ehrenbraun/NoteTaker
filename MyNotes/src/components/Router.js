@@ -17,7 +17,12 @@ import DrawingViewer from './DrawingViewer'
 // https://www.youtube.com/watch?v=unr4s3jd9qA
 // This helped with the private route
 
-
+/**
+ * This component (or better yet object) is where the different webpages(components) 
+ * are loaded based off of the url. If it is a private route, then the user needs to 
+ * be signed in to use that page.  This is a switch statement, so it will go down
+ * the options until it matches a path.
+ */
 const Router = () => (
     <Switch>
         <Route exact path="/login" component={Login} />
@@ -32,6 +37,12 @@ const Router = () => (
     </Switch>
 )
 
+/**
+ * This object is for creating a private route.  If the user is not signed
+ * in and tries to go to a route that is private, then they get redirected
+ * to the login page/component.
+ * @param {*} param0 -the component that is trying to be loaded
+ */
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
     return (
       <Route

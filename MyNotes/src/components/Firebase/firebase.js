@@ -4,10 +4,15 @@ import * as app from 'firebase';
 // Minh Ta: Help with cleaning up code to function correctly throughout firebase implementation
 // https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial => all files in Firebase folder
 
+// This is the configuration for the firebase given the information
 const firebaseConfig = {
     
   };
 
+  /**
+   * This class creates an instance of a firebase object that holds
+   * the authorization, firestore, and a provider for google authentication
+   */
   class Firebase {
       constructor() {
           app.initializeApp(firebaseConfig);

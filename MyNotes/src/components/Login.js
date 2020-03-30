@@ -9,8 +9,17 @@ import {withRouter} from 'react-router-dom';
 // https://www.youtube.com/watch?v=unr4s3jd9qA
 // This helped with getting the router to work with the component
 
-
+/**
+ * This component allows the user to sign in with google
+ * 
+ * @param history -the history of the url and what is being loaded now
+ */
 const Login = ({ history }) => {
+  /**
+   * This method creates a popup for the user to sign in with their google account.
+   * If the sign in was successful, they get redirected to the main page.
+   * @param event -the sign in button being clicked
+   */
   const signIn = event => {
     event.preventDefault();
     firebase.doSignInWithGoogle().then(function(result) {
@@ -27,6 +36,8 @@ const Login = ({ history }) => {
       }
     });
   }
+  
+  // html
   return(
     <div>
       <button onClick={signIn}>Sign In</button>
