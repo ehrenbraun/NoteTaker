@@ -49,7 +49,7 @@ const NoteList = () => {
         <h2>Note List</h2>
         <table align="center">
             <tbody>
-                {noteTitles.map(noteTitle => (
+                { noteTitles && noteTitles.map(noteTitle => (
                     <tr key={noteTitle.id}>
                         <td key={noteTitle.id + "1"}><h4 key={noteTitle.id + "title"}>{noteTitle.id}   </h4></td>
                         <td key={noteTitle.id + "2"}><Link to={`/viewNotes/${noteTitle.type}/${noteTitle.id}`}><button key={noteTitle.id + "view"}>View</button></Link></td>
